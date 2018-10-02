@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Words {
 
     public static String[] numbers = { "", "one", "two", "three", "four", "five", "six",
@@ -25,6 +27,8 @@ public class Words {
 
    public static void main(String[] args){
 
-        System.out.print(inWords(1999));
+       Scanner input = new Scanner(System.in);
+       int n = input.nextInt();
+        System.out.print(inWords(n));
    }
 }
