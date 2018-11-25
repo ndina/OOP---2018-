@@ -15,6 +15,7 @@ public abstract class Person implements Comparable, Serializable, Cloneable {
     public Person(int id){
         this.id = id;
     }
+    public Person(){}
 
     public String getName(){
         return name;

@@ -1,25 +1,28 @@
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
-public class Teacher extends Employee implements Serializable {
+public class Teacher extends Employee implements Serializable{
 
+    private Depart department;
     private String email;
     private int score;
+    private TeachTitle degree;
+    AccessLevel acc;
     public LinkedHashMap<Course, Vector<Student>> students;
-    public LinkedHashMap<Course, Vector<CourseFile>> file;
+    public LinkedHashMap <Course, Vector <CourseFile> > file;
 
 
-    public Teacher(String name, String surname, int id) {
-        super(name, surname, id);
-        students = new LinkedHashMap<Course, Vector<Student>>();
-        file = new LinkedHashMap<Course, Vector<CourseFile>>();
+    public Teacher(String firstName, String lastName, int id) {
+        super(firstName, lastName, id);
+        students = new LinkedHashMap <Course, Vector <Student> >();
+        file = new LinkedHashMap <Course, Vector <CourseFile>>();
     }
 
-    public Teacher(String name, String surname, int id, String email) {
-        super(name, surname, id);
+    public Teacher(String firstName, String lastName, int id, String email) {
+        super(firstName, lastName, id, 700000);
         this.email = email;
-        students = new LinkedHashMap<Course, Vector<Student>>();
-        file = new LinkedHashMap<Course, Vector<CourseFile>>();
+        students = new LinkedHashMap <Course, Vector <Student> >();
+        file = new LinkedHashMap <Course, Vector <CourseFile>>();
     }
     public Teacher(int id) {
         super(id);
@@ -31,40 +34,60 @@ public class Teacher extends Employee implements Serializable {
     public void setEmail(String email) {
         this.email=email;
     }
-    public String getCourses(){
-        String s = "";
-        for(Course value: students.keySet()){
-            s += value;
-        }
-        return s;
+    public Depart getDepartment() {
+        return department;
     }
 
-    public Vector<Student> getStudents(String s){
+    public void setDepartment(Depart department) {
+        this.department=department;
+    }
+    public String getCourses(){
+        String s = "";
+        int cnt = 1;
+        for(Course value:students.keySet()) {
+            s += cnt +" "+value;
+            cnt++;
+        }
+
+        return s;
+    }
+    public Vector<Student> getStudents(String s) {
         Course c = new Course(s);
+
+
         return students.get(c);
     }
 
+    public boolean equals(Object other) {
+        Teacher otherTeacher =(Teacher)other;
+        return super.equals(other)&& this.score==otherTeacher.score && this.degree.equals(degree) &&this.department.equals(department)&& this.email==otherTeacher.email;
+
+    }
 
     public int compareTo(Object o) {
-        Teacher t=(Teacher)o;
-        return Integer.compare(score, t.score);
+        Teacher em=(Teacher)o;
+        if(score>em.score) return 1;
+        if(score<em.score) return -1;
+        return 0;
     }
 
-    public LinkedHashMap<Course, Vector<Student>> getGrade(){
+    public LinkedHashMap<Course, Vector<Student>> getGrade() {
         return null;
     }
-    public void setGrade(int id, Course c, int marks) {
+    public void setGrade(int id, Course c, int m) {
         Student s = new Student(id);
-        int ind = students.get(c).indexOf(s); // достает вектор курсов и индекс студента
-        students.get(c).get(ind).disciplines.put(c, marks); // достает студента и ставит балл по определенным дисциплинам
-
+        //Course c = new Course(course);
+        int index = students.get(c).indexOf(s); // get vector of courses and index of student
+        students.get(c).get(index).disciplines.put(c,m); // get student and put mark on special courses
+        Storage.marks.put(s, m);
     }
 
-    public void addCourseFile(String s, Course c){
-        Vector v = new Vector<CourseFile>();
-        v.add(new CourseFile(s));
-        file.put(c, v);
+
+    public void addCourseFile(String s, Course c) {
+        Vector m = new Vector<CourseFile>();
+        m.add(new CourseFile(s));
+        file.put(c,m);
     }
+
 }
-
 

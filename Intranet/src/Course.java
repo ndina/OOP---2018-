@@ -1,61 +1,68 @@
 import java.io.Serializable;
 import java.util.*;
+public class Course implements Serializable{
 
-public class Course implements Serializable {
-    private String courseTitle;
-    private Vector<Teacher> teach;
-    public Vector<CourseFile> file;
-    private int credit;
-    private TreeMap<Student, Mark> marks;
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hash = 1;
-        int cnt = 1;
-        hash = (prime * hash + cnt);
-        cnt++;
-        return hash;
+        int result = 1;
+        result = prime * result + ((courseTitle == null) ? 0 : courseTitle.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this == obj) return true;
-        if(obj == null) return false;
-        if(this.getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
         Course other = (Course) obj;
-        if(courseTitle == null){
-            return other.courseTitle == null;
-        }
-        else return this.courseTitle.equals(other.courseTitle);
+        if (courseTitle == null) {
+            if (other.courseTitle != null)
+                return false;
+        } else if (!courseTitle.equals(other.courseTitle))
+            return false;
+        return true;
     }
+    private String courseTitle;
+    private Vector<Teacher> teach;
+    //private CourseFile file;
+    public Vector<CourseFile> file;
 
-    public Course(String courseTitle, int credit){
+    private int credit;
+    private TreeMap<Student, Mark> marks;
+
+    public Course(String courseTitle, int credit) {
         this.courseTitle = courseTitle;
         this.credit = credit;
-        file = new Vector<CourseFile>();
+        file= new Vector<CourseFile>();
         marks = new TreeMap<Student, Mark>();
     }
 
-    public Course(String courseTitle){
-        this.courseTitle = courseTitle;
+    public Course(String course) {
+        courseTitle=course;
+    }
+    public Course() {
+
     }
 
-    public String getCourseTitle(){
+    public String toString() {
+        return "Course:" + courseTitle;
+    }
+
+
+    public String getCourseTitle() {
         return courseTitle;
     }
-    public void setCourseTitle(String courseTitle){
+    public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
     }
-
-    public String toString(){
-        return "Course" + courseTitle;
-    }
-
-    public int getCredit(){
+    public int getCredit() {
         return credit;
     }
-
-    public void setCredit(int credit){
+    public void setCredit(int credit) {
         this.credit = credit;
     }
 

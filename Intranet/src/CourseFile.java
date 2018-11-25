@@ -1,8 +1,7 @@
-import java.util.*;
-import java.io.Serializable;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.*;
 
 public class CourseFile {
     private String bookTitle;
@@ -13,6 +12,8 @@ public class CourseFile {
         this.bookTitle = bookTitle;
         this.author = author;
         this.isbn = isbn;
+    }
+    public CourseFile() {
     }
     public CourseFile(String bookTitle) {
         this.bookTitle=bookTitle;
@@ -33,7 +34,8 @@ public class CourseFile {
 
     public boolean equals(Object b) {
         if(b != null && this.getClass() == b.getClass())
-            return this.isbn.equals(((CourseFile) b).isbn);
+            if(this.isbn.equals(((CourseFile)b).isbn))
+                return true;
         return false;
     }
 
@@ -43,15 +45,14 @@ public class CourseFile {
 
     public void serialize(Vector<CourseFile> v) {
         try {
-            FileOutputStream f = new FileOutputStream("book.txt");
+            FileOutputStream f = new FileOutputStream("book.out");
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeObject(v);
             o.flush();
             o.close();
             f.close();
         }catch(IOException e) {
-          System.out.println("No files found!");
+            e.printStackTrace();
         }
     }
 }
-
