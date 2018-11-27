@@ -13,17 +13,15 @@ public class Tester {
         Storage.serOrders();
         Storage.serCourses();
     }
+    Date date  = new Date();
+
 
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
         if(new File("students.out").exists()) Storage.desStudents();
         if(new File("managers.out").exists()) Storage.desManager();
-        if(new File("teache" +
-                "" +
-                "" +
-                "" +
-                "rs.out").exists()) Storage.desTeacher();
+        if(new File("teachers.out").exists()) Storage.desTeacher();
         if(new File("executors.out").exists()) Storage.desExecutor();
         if(new File("idAndPass.out").exists()) Storage.desIdPass();
         if(new File("marks.out").exists()) Storage.desMarks();
@@ -34,54 +32,13 @@ public class Tester {
         Date t = new Date();
         int id;
         String password;
-        //Storage store = new Storage();
 
-		/*Executor ex= new Executor("Sasha","IT", 123);
-		Executor ex1= new Executor();
-		Storage.mapE.put(123, ex);
-
-		Manager m= new Manager();
-		Order or =new Order("Clean", 5);
-		Storage.orders.add(or);
-		String maa = new String("NEW BOOK IN THE LIBRARY");
-		Storage.newsVec.add(maa);*/
-
-		/*Student s1 = new Student("Aiym", "Raikhanova", 234);
-		s1.disciplines= new LinkedHashMap<Course, Integer>();
-		Student s2 = new Student("Aigerim", "Zhumabaeva", 564);
-		Storage.mapS.put(234, s1);
-		Storage.mapS.put(564, s2);
-
-		Student s3 = new Student("Sedi", "Gamidov", 798);
-		Storage.mapS.put(798, s3);
-		Student s4 = new Student("Alinur", "Sabit", 1);
-		Storage.mapS.put(1, s4);
-
-		Student s5 = new Student("Aida", "Usmanov", 20);
-		Storage.mapS.put(20, s5);
-		Student s6 = new Student("Bakyt", "Issimova", 10);
-		Storage.mapS.put(10, s6);
-
-		Vector<Student> stu=new  Vector<Student>();
-		Vector<Student> stu1=new  Vector<Student>();
-		stu1.add(s5);
-		stu1.add(s6);
-		stu.add(s1);
-		stu.add(s2);
-		stu.add(s3);
-		stu.add(s4);
-		*/
-
-        //s1.disciplines.put(c, 88);
-        //Teacher tp = new Teacher("Pakita", "Shamoi", 453);
-        //Storage.mapT.put(453, tp);
-        //tp.students.put(c, stu);
-        //tp.students.put(c2, stu1);
         save();
         try {
             exit:while(true) {
                 System.out.println("\n1) Admin \n2) Manager \n3) Teacher \n4) Executor \n5) Student \n6) Exit ");
                 int choice = Integer.parseInt(console.readLine());
+                PrintWriter ad1 = new PrintWriter(new PrintWriter(new FileWriter("admin.txt"), true));
 
                 if(choice == 1) {
 					/*BufferedReader ad1 = new BufferedReader(new FileReader("name.txt"));
@@ -106,6 +63,11 @@ public class Tester {
                     //if(name.equals(userName) && Integer.parseInt(pass) == password) {
                     admin:while(true) {
                         Admin ad = new Admin();
+                        //BufferedReader ad1 = new BufferedReader(new FileReader("name.txt"));
+                        PrintWriter pr = new PrintWriter(new FileWriter("admin.txt"), true);
+                        ad1.write(t+" admin logged in to a system");
+                        ad1.println();
+                        ad1.write(t + " admin logged into the system");
                         System.out.println("\n1) Add to system \n2) Remove from system \n3) Exit");
                         int adminChoice = Integer.parseInt(console.readLine());
                         if(adminChoice == 1) { // add to system
@@ -284,7 +246,7 @@ public class Tester {
                             save();
                         }
                         if(adminChoice == 5) {
-                            if(!Storage.showCourses()) continue manager;
+                            if(!Storage.showTeacher()) continue manager;
                             System.out.println("\nChoose course");
                             int choosedCourse = Integer.parseInt(console.readLine());
                             if(!Storage.showStudent()) continue manager;
@@ -297,7 +259,7 @@ public class Tester {
                     }
                     //}
                 }
-
+			
 				/*
 				////////////////////////////////////////////////////////////////////////
 				//Teacher*/
@@ -324,12 +286,7 @@ public class Tester {
                                 System.out.println(cnt+") "+i);
                                 cnt++;
                             }
-                            //print list 1. ... 2. ...
-                            ///ask user to choose
-                            // Course c = list.get(i-1);
-                            // Vector <Student> studs = t1.students.get(c);
-                            //Collections.sort(studs);
-                            // print
+
                             System.out.println("\n Choose course");
                             int choosedCourse = Integer.parseInt(console.readLine());
 
@@ -450,11 +407,11 @@ public class Tester {
 							/*if(adminChoice == 5) {  // register on course
 								if(!Storage.showCourses()) continue exit;
 								int i =Integer.parseInt(console.readLine())-1;
-
+								
 								System.out.println("Choose student to which you want to add course: (Enter number)");
 								if(!Storage.showStudent()) continue exit;
 								Student s = Storage.mapS.get(Integer.parseInt(console.readLine()));
-
+								
 								s.disciplines.put(Storage.courses.get(i),0);
 								Storage.regedStu(Storage.courses.get(i), s);
 								System.out.println("Course "+Storage.courses.get(i) +" added to  "+s.getName());

@@ -126,7 +126,7 @@ public class Storage implements Serializable{
         }
         return true;
     }
-
+    
     /*public static void regOnCourse(Course c, Student s) {
     	for(Entry<Course, Vector<Student>> entry : regedStu.entrySet()) {
     		if(c.equals(entry.getKey()))
@@ -260,8 +260,8 @@ public class Storage implements Serializable{
 		}
 		return true;
 	}*/
-
-
+ 
+    
     /*public void serialize(Vector<Object> v) { // to store all vectors
     	try {
     		FileOutputStream f = new FileOutputStream("store.out");
